@@ -22,8 +22,8 @@ public class Angebot {
 
     private LocalDateTime createdatetime;
 
-    @ManyToOne
-    @JoinColumn(name = "tbl_kategorie_kategorieId")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "tbl_kategorie_kategorieid")
     private Kategorie kategorie;
 
     @OneToOne
