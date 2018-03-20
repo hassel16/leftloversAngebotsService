@@ -30,8 +30,12 @@ public class AngebotsServiceRestController {
     }
 
     @RequestMapping(method= RequestMethod.POST, value ="/Angebot",produces = "application/json")
-    public String newAngebot(@RequestBody Angebot angebot) {
-        return "sadad";
+    public @ResponseBody Angebot newAngebot(@RequestBody Angebot angebot) {
+        if(angebotsService.getAngebot(1).isPresent()){
+            return angebotsService.getAngebot(1).get();
+        }else{
+            return null;
+        }
     }
 
     @RequestMapping(method= RequestMethod.GET, value ="/Angebot/{angebotsid}",produces = "application/json")
