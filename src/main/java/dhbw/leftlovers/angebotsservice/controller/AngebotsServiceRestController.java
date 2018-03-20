@@ -10,20 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/AngebotsService")
 public class AngebotsServiceRestController {
 
     @Autowired
     AngebotsService angebotsService;
-
-    @RequestMapping(value= "**", method=RequestMethod.OPTIONS)
-    public void corsHeaders(HttpServletResponse response) {
-        response.addHeader("Access-Control-Allow-Origin", "*");
-        response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        response.addHeader("Access-Control-Allow-Headers", "origin, content-type, accept, x-requested-with");
-        response.addHeader("Access-Control-Max-Age", "3600");
-    }
 
     @RequestMapping(method=RequestMethod.GET, value = "/wakeup", produces = "application/json")
     public String wakeup() {
