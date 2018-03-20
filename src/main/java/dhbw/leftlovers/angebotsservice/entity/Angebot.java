@@ -23,7 +23,7 @@ public class Angebot {
     private LocalDateTime createdatetime;
 
     @ManyToOne
-    @JoinColumn(name = "tbl_kategorie_kategorieid")
+    @JoinColumn(name = "tbl_kategorie_kategorieId")
     private Kategorie kategorie;
 
     @OneToOne
