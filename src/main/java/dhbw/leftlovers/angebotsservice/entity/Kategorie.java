@@ -1,8 +1,11 @@
 package dhbw.leftlovers.angebotsservice.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 @Table(name = "tbl_kategorie")
 public class Kategorie {
 

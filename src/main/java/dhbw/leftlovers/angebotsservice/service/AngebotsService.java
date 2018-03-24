@@ -22,8 +22,34 @@ public class AngebotsService implements  AngebotsServiceInterface{
         return angebotRepository.findAll();
     }
 
+    @Override
     public Optional<Angebot> getAngebot(long angebotsid){
         return angebotRepository.findById(angebotsid);
+    }
+
+    @Override
+    public Optional<List<Angebot>> findByTitel(String titel) {
+        return angebotRepository.findByTitelStartingWith(titel);
+    }
+
+    public Optional<List<Angebot>> findByUserIdAndTitel(long userid, String titel) {
+        return angebotRepository.findByUseridAndTitelStartingWith(userid,titel);
+    }
+
+    public Optional<List<Angebot>> findByUserIdAndTitelAndKategorieId(long userid, String titel, long kategorieid) {
+        return angebotRepository.findByUseridAndTitelStartingWithAndKategorie_Kategorieid(userid,titel,kategorieid);
+    }
+
+    public Optional<List<Angebot>> findByKategorieIdAndTitel(long kategorieid, String titel) {
+        return angebotRepository.findByKategorie_KategorieidAndTitelStartingWith(kategorieid, titel);
+    }
+
+    public Optional<List<Angebot>> findByUserAndKategorieId(long userid,long kategorieid) {
+        return angebotRepository.findByUseridAndKategorie_Kategorieid(userid,kategorieid);
+    }
+
+    public Optional<List<Angebot>> findByKategorieId(long kategorieid) {
+        return angebotRepository.findByKategorie_Kategorieid(kategorieid);
     }
 
     @Override

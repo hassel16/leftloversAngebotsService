@@ -15,16 +15,17 @@ public class Angebot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long angebotid;
 
-    @Basic
     private String titel;
 
     private String description;
 
     private LocalDateTime createdatetime;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "tbl_kategorie_kategorieid")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "tbl_kategorie_kategorieid", nullable = false)
     private Kategorie kategorie;
+
+    private double preis;
 
     @OneToOne
     @JoinColumn(name = "tbl_foto_fotoid")
