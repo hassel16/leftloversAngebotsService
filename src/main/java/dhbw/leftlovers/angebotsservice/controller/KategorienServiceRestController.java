@@ -1,20 +1,23 @@
 package dhbw.leftlovers.angebotsservice.controller;
 
-import dhbw.leftlovers.angebotsservice.service.AngebotsService;
+import dhbw.leftlovers.angebotsservice.entity.Kategorie;
+import dhbw.leftlovers.angebotsservice.service.kategorieservice.KategorieService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/AngebotsService")
 public class KategorienServiceRestController {
 
+    @Autowired
+    KategorieService kategorieService;
+
     //value = "/{name}"  @PathVariable String name
     @RequestMapping(method=RequestMethod.GET, value ="/Kategorie" ,produces = "application/json")
-    public String getKategorieList() {
-        return "Greetings from Spring Boot!";
+    @ResponseBody public List<Kategorie> getKategorieList() {
+        return kategorieService.getKategorieList();
     }
 
     //value = "/{name}"  @PathVariable String name

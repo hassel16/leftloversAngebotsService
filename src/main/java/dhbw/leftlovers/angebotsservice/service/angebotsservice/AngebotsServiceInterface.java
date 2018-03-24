@@ -1,4 +1,4 @@
-package dhbw.leftlovers.angebotsservice.service;
+package dhbw.leftlovers.angebotsservice.service.angebotsservice;
 
 import dhbw.leftlovers.angebotsservice.entity.Angebot;
 

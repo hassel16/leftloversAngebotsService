@@ -1,14 +1,10 @@
 package dhbw.leftlovers.angebotsservice.controller;
 
 import dhbw.leftlovers.angebotsservice.entity.Angebot;
-import dhbw.leftlovers.angebotsservice.service.AngebotsService;
+import dhbw.leftlovers.angebotsservice.service.angebotsservice.AngebotsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.core.annotation.RestResource;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Validation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
