@@ -33,11 +33,11 @@ public class AngebotsService implements  AngebotsServiceInterface{
     }
 
     public Optional<List<Angebot>> findByUserIdAndTitel(long userid, String titel) {
-        return angebotRepository.findByUseridAndTitelStartingWith(userid,titel);
+        return angebotRepository.findByUser_UseridAndTitelStartingWith(userid,titel);
     }
 
     public Optional<List<Angebot>> findByUserIdAndTitelAndKategorieId(long userid, String titel, long kategorieid) {
-        return angebotRepository.findByUseridAndTitelStartingWithAndKategorie_Kategorieid(userid,titel,kategorieid);
+        return angebotRepository.findByUser_UseridAndTitelStartingWithAndKategorie_Kategorieid(userid,titel,kategorieid);
     }
 
     public Optional<List<Angebot>> findByKategorieIdAndTitel(long kategorieid, String titel) {
@@ -45,7 +45,7 @@ public class AngebotsService implements  AngebotsServiceInterface{
     }
 
     public Optional<List<Angebot>> findByUserAndKategorieId(long userid,long kategorieid) {
-        return angebotRepository.findByUseridAndKategorie_Kategorieid(userid,kategorieid);
+        return angebotRepository.findByUser_UseridAndKategorie_Kategorieid(userid,kategorieid);
     }
 
     public Optional<List<Angebot>> findByKategorieId(long kategorieid) {
@@ -59,6 +59,6 @@ public class AngebotsService implements  AngebotsServiceInterface{
 
     @Override
     public Optional<List<Angebot>> findByUser(long userId) {
-        return angebotRepository.findByUserid(userId);
+        return angebotRepository.findByUser_Userid(userId);
     }
 }

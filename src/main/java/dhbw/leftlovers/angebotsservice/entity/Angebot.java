@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Data
@@ -31,7 +32,12 @@ public class Angebot {
     @JoinColumn(name = "tbl_foto_fotoid")
     private Foto foto;
 
-    @Column(name = "tbl_user_userid",nullable = false)
-    private long userid;
+    @ManyToOne
+    @JoinColumn(name = "tbl_user_userid",nullable = false)
+    private User user;
 
+    public String getCreatedatetime(){
+         final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+         return DATE_FORMAT.format(createdatetime);
+    }
 }
