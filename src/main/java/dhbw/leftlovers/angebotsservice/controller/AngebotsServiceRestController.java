@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/AngebotsService")
 public class AngebotsServiceRestController {
@@ -17,8 +17,8 @@ public class AngebotsServiceRestController {
     @Autowired
     AngebotsService angebotsService;
 
-    @GetMapping(value ="/wakeup",produces = "application/json")
-    public String wakeup() {
+    @GetMapping(value ="/health",produces = "application/json")
+    @ResponseBody public String wakeup() {
         return "Greetings from Spring Boot!";
     }
 
