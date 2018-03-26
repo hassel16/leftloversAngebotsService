@@ -1,6 +1,7 @@
 package dhbw.leftlovers.angebotsservice.controller;
 
 import dhbw.leftlovers.angebotsservice.entity.Angebot;
+import dhbw.leftlovers.angebotsservice.register.Health;
 import dhbw.leftlovers.angebotsservice.service.angebotsservice.AngebotsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +19,8 @@ public class AngebotsServiceRestController {
     AngebotsService angebotsService;
 
     @GetMapping(value ="/health",produces = "application/json")
-    @ResponseBody public String wakeup() {
-        return "Greetings from Spring Boot!";
+    @ResponseBody public Health wakeup() {
+        return new Health();
     }
 
     @GetMapping(value ="/Angebot",produces = "application/json")
