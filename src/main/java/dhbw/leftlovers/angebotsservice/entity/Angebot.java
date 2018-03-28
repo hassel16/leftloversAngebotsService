@@ -36,6 +36,10 @@ public class Angebot {
     @JoinColumn(name = "tbl_user_userid",nullable = false)
     private User user;
 
+    @OneToOne
+    @JoinColumn(name = "tbl_standort_standortid",nullable = false)
+    private Standort standort;
+
     public String getCreatedatetime(){
          final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy");
          return DATE_FORMAT.format(createdatetime);

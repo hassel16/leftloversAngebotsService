@@ -4,6 +4,7 @@ import dhbw.leftlovers.angebotsservice.entity.Angebot;
 import dhbw.leftlovers.angebotsservice.repository.AngebotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -60,5 +61,10 @@ public class AngebotsService implements  AngebotsServiceInterface{
     @Override
     public Optional<List<Angebot>> findByUser(long userId) {
         return angebotRepository.findByUser_Userid(userId);
+    }
+
+    @Transactional
+    public void deleteAngebot(long angebotsid){
+        this.angebotRepository.deleteById(angebotsid);
     }
 }
