@@ -1,6 +1,7 @@
 package dhbw.leftlovers.angebotsservice.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 

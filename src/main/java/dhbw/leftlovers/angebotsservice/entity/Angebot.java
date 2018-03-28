@@ -1,6 +1,7 @@
 package dhbw.leftlovers.angebotsservice.entity;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -22,7 +23,7 @@ public class Angebot {
 
     private LocalDateTime createdatetime;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "tbl_kategorie_kategorieid", nullable = false)
     private Kategorie kategorie;
 
@@ -40,8 +41,4 @@ public class Angebot {
     @JoinColumn(name = "tbl_standort_standortid",nullable = false)
     private Standort standort;
 
-    public String getCreatedatetime(){
-         final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-         return DATE_FORMAT.format(createdatetime);
-    }
 }
