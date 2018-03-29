@@ -2,6 +2,9 @@ package dhbw.leftlovers.angebotsservice.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLInsert;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 
@@ -17,6 +20,9 @@ public class Standort {
     @Basic
     @Column(name = "name")
     private String long_name;
+
+    @Column(name = "name_details")
+    private String name_details;
 
     @Basic
     @Column(name = "longitude")

@@ -1,5 +1,8 @@
 package dhbw.leftlovers.angebotsservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -29,7 +32,7 @@ public class Angebot {
 
     private double preis;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "tbl_foto_fotoid")
     private Foto foto;
 
@@ -37,8 +40,14 @@ public class Angebot {
     @JoinColumn(name = "tbl_user_userid",nullable = false)
     private User user;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "tbl_standort_standortid",nullable = false)
     private Standort standort;
+
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
+    public LocalDateTime getCreatedatetime() {
+        return this.createdatetime;
+    }
+
 
 }

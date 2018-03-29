@@ -3,6 +3,7 @@ package dhbw.leftlovers.angebotsservice.controller;
 import dhbw.leftlovers.angebotsservice.entity.Angebot;
 import dhbw.leftlovers.angebotsservice.register.Health;
 import dhbw.leftlovers.angebotsservice.service.angebotsservice.AngebotsService;
+import dhbw.leftlovers.angebotsservice.service.standortservice.StandortService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,9 @@ public class AngebotsServiceRestController {
     @Autowired
     AngebotsService angebotsService;
 
+    @Autowired
+    StandortService standortService;
+
     @GetMapping(value ="/health",produces = "application/json")
     @ResponseBody public Health wakeup() {
         return new Health();
@@ -27,19 +31,44 @@ public class AngebotsServiceRestController {
     @GetMapping(value ="/Angebot",produces = "application/json")
     @ResponseBody public List<Angebot> getArticleList(@RequestParam(value = "userid") Optional<Long> userparameter,
                                                       @RequestParam(value = "angebotstitel") Optional<String> angebotstitel,
-                                                      @RequestParam(value = "kategorieid") Optional<Long> kategorieparameter) {
+                                                      @RequestParam(value = "kategorieid") Optional<Long> kategorieparameter,
+                                                      @RequestParam(value = "radius") Optional<Long> radiusmode) {
         int mode = this.getArticleListMode(userparameter, angebotstitel, kategorieparameter);
+        List<Angebot> output;
         switch (mode){
-            case 0 : return angebotsService.getAngebotlist();
-            case 1 : return angebotsService.findByUserIdAndTitelAndKategorieId(userparameter.get(),angebotstitel.get(),kategorieparameter.get()).orElse(new ArrayList<>());
-            case 2 : return angebotsService.findByUserIdAndTitel(userparameter.get(),angebotstitel.get()).orElse(new ArrayList<>());
-            case 3 : return angebotsService.findByKategorieIdAndTitel(kategorieparameter.get(),angebotstitel.get()).orElse(new ArrayList<>());
-            case 4 : return angebotsService.findByUserAndKategorieId(userparameter.get(),kategorieparameter.get()).orElse(new ArrayList<>());
-            case 5 : return angebotsService.findByTitel(angebotstitel.get()).orElse(new ArrayList<>());
-            case 6 : return angebotsService.findByUser(userparameter.get()).orElse(new ArrayList<>());
-            case 7 : return angebotsService.findByKategorieId(kategorieparameter.get()).orElse(new ArrayList<>());
-            default: return new ArrayList<>();
+            case 0 :
+                output = angebotsService.getAngebotlist();
+                break;
+            case 1 :
+                output = angebotsService.findByUserIdAndTitelAndKategorieId(userparameter.get(),angebotstitel.get(),kategorieparameter.get()).orElse(new ArrayList<>());
+                break;
+            case 2 :
+                output = angebotsService.findByUserIdAndTitel(userparameter.get(),angebotstitel.get()).orElse(new ArrayList<>());
+                break;
+            case 3 :
+                output = angebotsService.findByKategorieIdAndTitel(kategorieparameter.get(),angebotstitel.get()).orElse(new ArrayList<>());
+                break;
+            case 4 :
+                output = angebotsService.findByUserAndKategorieId(userparameter.get(),kategorieparameter.get()).orElse(new ArrayList<>());
+                break;
+            case 5 :
+                output = angebotsService.findByTitel(angebotstitel.get()).orElse(new ArrayList<>());
+                break;
+            case 6 :
+                output = angebotsService.findByUser(userparameter.get()).orElse(new ArrayList<>());
+                break;
+            case 7 :
+                output = angebotsService.findByKategorieId(kategorieparameter.get()).orElse(new ArrayList<>());
+                break;
+            default: output = new ArrayList<>();
         }
+
+        return output;
+    }
+
+    private void filterRadius(List<Angebot>,double lng, double lat){
+
+        6378.388 * Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1))
     }
 
     private int getArticleListMode(Optional<Long> userparameter,Optional<String> angebotstitel,Optional<Long> kategorieparameter){
@@ -57,12 +86,23 @@ public class AngebotsServiceRestController {
             return 6;
         }else if(kategorieparameter.isPresent()){
             return 7;
+        } else if(kategorieparameter.isPresent()){
+            return 7;
         }
         return 0;
     }
 
     @PostMapping(value = "/Angebot",produces = "application/json")
     @ResponseBody Angebot newAngebot(@RequestBody Angebot angebot) {
+            standortService.findbylatlng(angebot.getStandort().getLat(),angebot.getStandort().getLng())
+                    .ifPresent(standort -> angebot.setStandort(standort));
+        return angebotsService.save(angebot);
+    }
+
+    @PutMapping(value = "/Angebot",produces = "application/json")
+    @ResponseBody Angebot updateAngebot(@RequestBody Angebot angebot) {
+            standortService.findbylatlng(angebot.getStandort().getLat(),angebot.getStandort().getLng())
+                    .ifPresent(standort -> angebot.setStandort(standort));
         return angebotsService.save(angebot);
     }
 
