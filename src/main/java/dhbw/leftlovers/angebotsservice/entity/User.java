@@ -3,7 +3,6 @@ package dhbw.leftlovers.angebotsservice.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
