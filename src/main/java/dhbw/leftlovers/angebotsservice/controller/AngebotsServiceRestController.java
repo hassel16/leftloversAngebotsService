@@ -36,6 +36,7 @@ public class AngebotsServiceRestController {
                                                       @RequestParam(value = "lat") Optional<Double> lat,
                                                       @RequestParam(value = "lng") Optional<Double> lng,
                                                       @RequestParam(value = "radius") Optional<Long> radius) {
+
         int mode = this.getArticleListMode(userparameter, angebotstitel, kategorieparameter,radius);
         List<Angebot> output;
         switch (mode){
@@ -99,12 +100,18 @@ public class AngebotsServiceRestController {
             if(radiusmode.get()==0){
                 if(userparameter.isPresent() && angebotstitel.isPresent() && kategorieparameter.isPresent()){
                     return 1;
+                }else if (angebotstitel.isPresent() && kategorieparameter.isPresent() && radiusmode.isPresent()) {
+                    return 9;
                 }else if(userparameter.isPresent() && angebotstitel.isPresent()){
                     return 2;
                 }else if (angebotstitel.isPresent() && kategorieparameter.isPresent()){
                     return 3;
                 }else if (userparameter.isPresent() && kategorieparameter.isPresent()){
                     return 4;
+                }else if (kategorieparameter.isPresent() && radiusmode.isPresent()) {
+                    return 10;
+                }else if (angebotstitel.isPresent() && radiusmode.isPresent()) {
+                    return 11;
                 }else if(angebotstitel.isPresent()){
                     return 5;
                 }else if(userparameter.isPresent()){
@@ -113,12 +120,6 @@ public class AngebotsServiceRestController {
                     return 7;
                 }else if(radiusmode.isPresent()){
                     return 8;
-                }else if (angebotstitel.isPresent() && kategorieparameter.isPresent() && radiusmode.isPresent()) {
-                    return 9;
-                }else if (kategorieparameter.isPresent() && radiusmode.isPresent()) {
-                    return 10;
-                }else if (angebotstitel.isPresent() && radiusmode.isPresent()) {
-                    return 11;
                 }
                 return 0;
             }else{
