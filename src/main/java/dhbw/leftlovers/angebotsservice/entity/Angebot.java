@@ -37,7 +37,7 @@ public class Angebot {
 
     @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "tbl_standort_standortid",nullable = false)
-    private Standort standort;
+    private Standort city;
 
     @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
     public LocalDateTime getCreatedatetime() {

@@ -14,8 +14,8 @@ public interface AngebotRepository extends JpaRepository<Angebot,Long> {
     Optional<List<Angebot>> findByKategorie_Kategorieid(long kategorieid);
     Optional<List<Angebot>> findByKategorie_KategorieidAndTitelStartingWith(long kategorieid,String titel);
     Optional<List<Angebot>> findByUser_UseridAndKategorie_Kategorieid(long userid, long kategorieid);
-    Optional<List<Angebot>> findByStandort_Longname(String longname);
-    Optional<List<Angebot>> findByKategorie_KategorieidAndStandort_LongnameAndTitelStartingWith(long kategorieid, String longname, String titel);
-    Optional<List<Angebot>> findByKategorie_KategorieidAndStandort_Longname(long kategorieid, String longname);
-    Optional<List<Angebot>> findByStandort_LongnameAndTitelStartingWith(String longname, String titel);
+    Optional<List<Angebot>> findByCity_Longname(String longname);
+    Optional<List<Angebot>> findByKategorie_KategorieidAndCity_LongnameAndTitelStartingWith(long kategorieid, String longname, String titel);
+    Optional<List<Angebot>> findByKategorie_KategorieidAndCity_Longname(long kategorieid, String longname);
+    Optional<List<Angebot>> findByCity_LongnameAndTitelStartingWith(String longname, String titel);
 }

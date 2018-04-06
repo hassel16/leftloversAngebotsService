@@ -51,22 +51,22 @@ public class AngebotsService implements  AngebotsServiceInterface{
 
     @Override
     public Optional<List<Angebot>> findByStandort_Longname(String longname) {
-        return angebotRepository.findByStandort_Longname(longname);
+        return angebotRepository.findByCity_Longname(longname);
     }
 
     @Override
     public Optional<List<Angebot>> findByKategorie_KategorieidAndStandort_LongnameAndTitelStartingWith(long kategorieid, String longname, String titel) {
-        return angebotRepository.findByKategorie_KategorieidAndStandort_LongnameAndTitelStartingWith(kategorieid, longname, titel);
+        return angebotRepository.findByKategorie_KategorieidAndCity_LongnameAndTitelStartingWith(kategorieid, longname, titel);
     }
 
     @Override
     public Optional<List<Angebot>> findByKategorie_KategorieidAndStandort_Longname(long kategorieid, String longname) {
-        return angebotRepository.findByKategorie_KategorieidAndStandort_Longname(kategorieid, longname);
+        return angebotRepository.findByKategorie_KategorieidAndCity_Longname(kategorieid, longname);
     }
 
     @Override
     public Optional<List<Angebot>> findByStandort_LongnameAndTitelStartingWith(String longname, String titel) {
-        return angebotRepository.findByStandort_LongnameAndTitelStartingWith(longname, titel);
+        return angebotRepository.findByCity_LongnameAndTitelStartingWith(longname, titel);
     }
 
     public Optional<List<Angebot>> findByKategorieId(long kategorieid) {

@@ -38,6 +38,7 @@ public class AngebotsServiceRestController {
                                                       @RequestParam(value = "radius") Optional<Long> radius) {
         int mode = this.getArticleListMode(userparameter, angebotstitel, kategorieparameter,radius);
         List<Angebot> output;
+        System.out.println(angebotstitel.isPresent());
         switch (mode){
             case 0 :
                 output = angebotsService.getAngebotlist();
@@ -89,7 +90,7 @@ public class AngebotsServiceRestController {
     }
 
     private void filterRadius(List<Angebot> angebotList,double lng, double lat, long radius){
-        angebotList.removeIf((Angebot angebot) -> (angebot.getStandort().isInRadius(lat,lng,radius)));
+        angebotList.removeIf((Angebot angebot) -> (angebot.getCity().isInRadius(lat,lng,radius)));
     }
 
     private int getArticleListMode(Optional<Long> userparameter,Optional<String> angebotstitel,Optional<Long> kategorieparameter,Optional<Long> radiusmode){
@@ -109,7 +110,7 @@ public class AngebotsServiceRestController {
                     return 6;
                 }else if(kategorieparameter.isPresent()){
                     return 7;
-                } else if(radiusmode.isPresent()){
+                }else if(radiusmode.isPresent()){
                     return 8;
                 }else if (angebotstitel.isPresent() && kategorieparameter.isPresent() && radiusmode.isPresent()) {
                     return 9;
@@ -145,15 +146,15 @@ public class AngebotsServiceRestController {
 
     @PostMapping(value = "/Angebot",produces = "application/json")
     @ResponseBody Angebot newAngebot(@RequestBody Angebot angebot) {
-            standortService.findbylatlng(angebot.getStandort().getLat(),angebot.getStandort().getLng())
-                    .ifPresent(standort -> angebot.setStandort(standort));
+            standortService.findbylatlng(angebot.getCity().getLat(),angebot.getCity().getLng())
+                    .ifPresent(standort -> angebot.setCity(standort));
         return angebotsService.save(angebot);
     }
 
     @PutMapping(value = "/Angebot",produces = "application/json")
     @ResponseBody Angebot updateAngebot(@RequestBody Angebot angebot) {
-            standortService.findbylatlng(angebot.getStandort().getLat(),angebot.getStandort().getLng())
-                    .ifPresent(standort -> angebot.setStandort(standort));
+            standortService.findbylatlng(angebot.getCity().getLat(),angebot.getCity().getLng())
+                    .ifPresent(standort -> angebot.setCity(standort));
         return angebotsService.save(angebot);
     }
 
