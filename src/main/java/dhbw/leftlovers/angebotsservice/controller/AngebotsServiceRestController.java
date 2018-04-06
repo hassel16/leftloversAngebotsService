@@ -38,7 +38,6 @@ public class AngebotsServiceRestController {
                                                       @RequestParam(value = "radius") Optional<Long> radius) {
         int mode = this.getArticleListMode(userparameter, angebotstitel, kategorieparameter,radius);
         List<Angebot> output;
-        System.out.println(angebotstitel.isPresent());
         switch (mode){
             case 0 :
                 output = angebotsService.getAngebotlist();

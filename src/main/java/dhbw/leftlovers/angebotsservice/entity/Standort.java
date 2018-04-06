@@ -2,7 +2,8 @@ package dhbw.leftlovers.angebotsservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import org.hibernate.boot.jaxb.SourceType;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.persistence.*;
 
@@ -32,17 +33,18 @@ public class Standort {
 
     public boolean isInRadius(double latU,double lngU,long radius){
 
-        int erdradius = 6371;
+        final String uri = "https://leftloversgateway.azurewebsites.net/StandortService/Abstandsberechnung";
+        UriComponentsBuilder builder = UriComponentsBuilder
+                .fromUriString(uri)
+                // Add query parameter
+                .queryParam("lat1",this.lat)
+                .queryParam("lon1",this.lng)
+                .queryParam("lat2", latU)
+                .queryParam("lon2",lngU);
 
-        double lat = Math.toRadians(latU - this.lat);
-        double lon = Math.toRadians(lngU - this.lng);
-
-        double a = Math.sin(lat / 2) * Math.sin(lat / 2) + Math.cos(Math.toRadians(this.lat)) * Math.cos(Math.toRadians(latU)) * Math.sin(lon / 2) * Math.sin(lon / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double d = erdradius * c;
-
-        System.out.println(Math.abs(d));
-        if((double)radius <= Math.abs(d)){
+        RestTemplate restTemplate = new RestTemplate();
+        Double abstandInKm= restTemplate.getForObject(builder.toUriString(), Double.class);
+        if((double)radius <= abstandInKm){
             return true;
         }else{
             return false;
