@@ -53,8 +53,13 @@ public class Angebot {
     private Double entfernung;
 
     public String getEntfernung(){
-        DecimalFormat df = new DecimalFormat("#.0");
-        return df.format(this.entfernung);
+        if(entfernung != null){
+            DecimalFormat df = new DecimalFormat("0.0");
+            return df.format(this.entfernung);
+        }else{
+            return null;
+        }
+
     }
 
     public void setEntfernung(double latU,double lngU){
