@@ -83,9 +83,9 @@ public class AngebotsServiceRestController {
             if(radius.isPresent()){
                 if(radius.get()>0 && lat.isPresent() && lng.isPresent()){
                     this.filterRadius(output,lng.get(),lat.get(),radius.get());
+                }else{
+                    output.stream().forEach(angebot-> angebot.setEntfernung(lat.get(),lng.get()));
                 }
-            }else{
-                output.stream().forEach(angebot-> angebot.setEntfernung(lat.get(),lng.get()));
             }
         }
         return output;
