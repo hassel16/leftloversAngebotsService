@@ -78,18 +78,20 @@ public class AngebotsServiceRestController {
             default: output = new ArrayList<>();
         }
 
-        radius.ifPresent(radiusfilter->{
-            if(radiusfilter!=0){
-                if(lat.isPresent() && lng.isPresent()){
-                    this.filterRadius(output,lng.get(),lat.get(),radiusfilter);
+        if(lat.isPresent() && lng.isPresent()){
+            if(radius.isPresent()){
+                if(radius.get()>=0 && lat.isPresent() && lng.isPresent()){
+                    this.filterRadius(output,lng.get(),lat.get(),radius.get());
                 }
+            }else{
+                output.stream().forEach(angebot-> angebot.setEntfernung(lat.get(),lng.get()));
             }
-        });
+        }
         return output;
     }
 
     private void filterRadius(List<Angebot> angebotList,double lng, double lat, long radius){
-        angebotList.removeIf((Angebot angebot) -> (angebot.getCity().isInRadius(lat,lng,radius)));
+        angebotList.removeIf((Angebot angebot) -> (angebot.isInRadius(lat,lng,radius)));
     }
 
     private int getArticleListMode(Optional<Long> userparameter,Optional<String> angebotstitel,Optional<Long> kategorieparameter,Optional<Long> radiusmode){
