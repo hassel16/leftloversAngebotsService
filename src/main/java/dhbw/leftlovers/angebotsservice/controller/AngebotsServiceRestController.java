@@ -80,7 +80,7 @@ public class AngebotsServiceRestController {
 
         if(lat.isPresent() && lng.isPresent()){
             if(radius.isPresent()){
-                if(radius.get()>=0 && lat.isPresent() && lng.isPresent()){
+                if(radius.get()<=0 && lat.isPresent() && lng.isPresent()){
                     this.filterRadius(output,lng.get(),lat.get(),radius.get());
                 }
             }else{
