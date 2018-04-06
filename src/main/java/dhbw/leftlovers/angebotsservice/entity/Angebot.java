@@ -7,6 +7,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.persistence.*;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 
 @Entity
@@ -50,6 +51,11 @@ public class Angebot {
 
     @Transient
     private Double entfernung;
+
+    public String getEntfernung(){
+        DecimalFormat df = new DecimalFormat("#.0");
+        return df.format(this.entfernung);
+    }
 
     public void setEntfernung(double latU,double lngU){
         this.entfernung  = this.abstandInKm(latU, lngU);
