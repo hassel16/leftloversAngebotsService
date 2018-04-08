@@ -74,6 +74,7 @@ public class AngebotsService implements  AngebotsServiceInterface{
     }
 
     @Override
+    @Transactional
     public Angebot save(Angebot newAngebot) {
         return angebotRepository.save(newAngebot);
     }
